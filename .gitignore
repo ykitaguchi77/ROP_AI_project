@@ -1,0 +1,7 @@
+ROP_image/
+ROP_video/
+ropenv/
+models/
+data/
+runs/
+london-buses.jpg
