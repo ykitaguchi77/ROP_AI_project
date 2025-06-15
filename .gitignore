@@ -12,3 +12,7 @@ result.jpg
 1696_lens_inference.mp4
 1702_segmentation_inference.mp4
 1703_segmentation_inference.mp4
+1697_segmentation_inference.mp4
+1700_segmentation_inference.mp4
+yolo11n.pt
+yolo11m-seg.pt
