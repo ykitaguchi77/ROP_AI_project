@@ -1,18 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+ropenv/
+*.egg-info/
+.eggs/
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Project specific directories
 ROP_image/
 ROP_video/
-ropenv/
+ROP_project/
 models/
 data/
 runs/
-london-buses.jpg
-london-buses.jpg
 inference/
+
+# Media files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+*.avi
+*.mov
+
+# Model files
+*.pt
+*.pth
+*.onnx
+*.pb
+*.h5
+
+# Results
 result.txt
 result.jpg
-1696_lens_inference.mp4
-1702_segmentation_inference.mp4
-1703_segmentation_inference.mp4
-1697_segmentation_inference.mp4
-1700_segmentation_inference.mp4
-yolo11n.pt
-yolo11m-seg.pt
+*_result.txt
+*_result.jpg
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+*.cache
+
+# Temporary files
+*.tmp
+temp/
+tmp/
