@@ -27,7 +27,15 @@ ropenv/
 # Project specific directories
 ROP_image/
 ROP_video/
-ROP_project/
+# ROP_project内のデータ、モデル、出力を除外（コードは含める）
+ROP_project/data/
+ROP_project/models/
+ROP_project/outputs/
+ROP_project/notebooks/runs/
+ROP_project/notebooks/*.pt
+ROP_project/notebooks/*.jpg
+ROP_project/notebooks/*.jpeg
+ROP_project/notebooks/*.png
 models/
 data/
 runs/
