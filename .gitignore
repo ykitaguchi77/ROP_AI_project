@@ -27,7 +27,8 @@ ropenv/
 # Project specific directories
 ROP_image/
 ROP_video/
-ROP_project/
+ROP_project/bestimage_validation/*/画像
+ROP_project/bestimage_validation/*/動画
 models/
 data/
 runs/
