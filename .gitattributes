@@ -1,2 +1,2 @@
 # Normalize notebook line endings across OS
-*.ipynb text eol=lf
+*.ipynb text eol=crlf
