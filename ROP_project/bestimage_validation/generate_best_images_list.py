@@ -3,51 +3,73 @@ import pandas as pd
 import numpy as np
 import glob
 from pathlib import Path
+from datetime import datetime
 
 def generate_best_images_list():
     base_dir = r"C:\Users\ykita\ROP_AI_project\ROP_project\bestimage_validation"
-    output_path = r"C:\Users\ykita\ROP_AI_project\ROP_project\documents\bestimage_list.xlsx"
+    # 出力先: bestimage_validation/documents 配下へ保存（ユーザー要望）
+    output_path = os.path.join(base_dir, "documents", "bestimage_list.xlsx")
     
-    # Get all validation result CSV files
-    # The csv files are in subdirectories or in the current directory?
-    # Based on previous execution, they were in base_dir/validation_results_*.csv
-    # But LS shows they might be missing or moved?
-    # Let's search recursively just in case, or check the path.
-    # Actually, previous LS of bestimage_validation showed ONLY .py/.ipynb files.
-    # Wait, where did the CSVs go?
-    # Ah, the user might have moved them or I am misremembering.
-    # Let's look at the LS output again.
-    # It seems the CSVs are NOT in c:\Users\ykita\ROP_AI_project\ROP_project\bestimage_validation\
-    # But in previous turns they were there.
-    # Let me check "documents" folder or if they were deleted?
-    # Wait, the LS result showed:
-    # c:\Users\ykita\ROP_AI_project\ROP_project\bestimage_validation\
-    #   - documents\
-    #   - generate_best_images_list.py
-    # ...
-    # The CSVs are missing from the list!
-    
-    # However, the previous "Glob" command (few turns ago) found them in:
-    # c:\Users\ykita\ROP_AI_project\ROP_project\bestimage_validation\
-    # Maybe they are hidden or I am blind?
-    # Let me use recursive glob.
-    
-    csv_files = glob.glob(os.path.join(base_dir, "**", "validation_results_*.csv"), recursive=True)
+    # Get all per-case validation CSV files
+    # NOTE:
+    # - 同じ image_id のCSVが複数存在すると、二重に処理されてしまうことがあります。
+    # - そのため、見つかったCSVを image_id ごとに集約し「最新の1つだけ」を採用します。
+    validation_results_dir = os.path.join(base_dir, "validation_results")
+    if os.path.isdir(validation_results_dir):
+        csv_files_found = glob.glob(os.path.join(validation_results_dir, "validation_results_*.csv"))
+    else:
+        # Fallback: recursive search (older layouts)
+        csv_files_found = glob.glob(os.path.join(base_dir, "**", "validation_results_*.csv"), recursive=True)
+
     # Exclude "validation_results_all.csv" if it exists
-    csv_files = [f for f in csv_files if "validation_results_all.csv" not in f]
+    csv_files_found = [f for f in csv_files_found if os.path.basename(f) != "validation_results_all.csv"]
+
+    # Deduplicate by normalized path first (safety)
+    seen = set()
+    csv_files_found_unique = []
+    for f in csv_files_found:
+        norm = os.path.normcase(os.path.abspath(f))
+        if norm in seen:
+            continue
+        seen.add(norm)
+        csv_files_found_unique.append(f)
+
+    # Deduplicate by image_id, keep the newest file per id
+    csv_by_id = {}
+    for f in csv_files_found_unique:
+        try:
+            df_head = pd.read_csv(f, nrows=1)
+            if 'image_id' in df_head.columns and len(df_head) > 0:
+                image_id = str(df_head.iloc[0]['image_id'])
+            else:
+                image_id = os.path.basename(f).replace('validation_results_', '').replace('.csv', '')
+        except Exception:
+            # If header read fails, fall back to filename-based id
+            image_id = os.path.basename(f).replace('validation_results_', '').replace('.csv', '')
+
+        mtime = os.path.getmtime(f)
+        if image_id in csv_by_id:
+            prev_f, prev_mtime = csv_by_id[image_id]
+            if mtime > prev_mtime:
+                print(f"[WARN] Duplicate CSV for image_id={image_id}. Using newer file:\n  old: {prev_f}\n  new: {f}")
+                csv_by_id[image_id] = (f, mtime)
+            else:
+                print(f"[WARN] Duplicate CSV for image_id={image_id}. Keeping newer file:\n  keep: {prev_f}\n  skip: {f}")
+        else:
+            csv_by_id[image_id] = (f, mtime)
+
+    csv_items = sorted([(image_id, f_m[0]) for image_id, f_m in csv_by_id.items()], key=lambda x: x[0])
     
     all_best_images = []
     
-    print(f"Found {len(csv_files)} CSV files.")
+    print(f"Found {len(csv_files_found)} CSV files (unique files: {len(csv_files_found_unique)}, unique image_ids: {len(csv_items)}).")
     
-    for csv_file in csv_files:
+    for image_id, csv_file in csv_items:
         try:
             df = pd.read_csv(csv_file)
             if len(df) == 0:
                 continue
                 
-            image_id = str(df.iloc[0]['image_id']) if 'image_id' in df.columns else os.path.basename(csv_file).replace('validation_results_', '').replace('.csv', '')
-            
             print(f"Processing {image_id}...")
             
             # Basic validation
@@ -114,6 +136,22 @@ def generate_best_images_list():
                 final_candidates['mbss_score'] = np.nan
             if 'disc_core_score' not in final_candidates.columns:
                 final_candidates['disc_core_score'] = np.nan
+
+            # 追加要件:
+            # retina_ratio の閾値を緩めて候補を増やした場合でも、
+            # 「より厳しい閾値（高いパーセンタイル）を満たす画像」を常に上位に来るようにする。
+            # → 各画像が満たす最大パーセンタイル（retina_tier）を付与し、tier優先でソートする。
+            try:
+                thr_by_p = {p: float(df_valid['retina_ratio'].quantile(p)) for p in percentiles}
+                final_candidates = final_candidates.copy()
+                final_candidates['retina_tier'] = 0.0
+                for p in sorted(percentiles):  # low -> high (high wins)
+                    thr = thr_by_p[p]
+                    final_candidates.loc[final_candidates['retina_ratio'] >= thr, 'retina_tier'] = float(p)
+            except Exception:
+                # tier計算に失敗しても既存ロジックで続行
+                final_candidates = final_candidates.copy()
+                final_candidates['retina_tier'] = 0.0
                 
             # Create ranks (descending score = rank 1)
             # method='min' means ties get same rank
@@ -122,8 +160,14 @@ def generate_best_images_list():
             
             final_candidates['rank_sum'] = final_candidates['mbss_rank'] + final_candidates['disc_core_rank']
             
-            # Sort by rank_sum (ascending), then break ties with mbss_score (descending)
-            final_candidates = final_candidates.sort_values(by=['rank_sum', 'mbss_score'], ascending=[True, False])
+            # Sort priority:
+            # 1) retina_tier (desc): 厳しいretina_ratio閾値を満たすほど上位
+            # 2) rank_sum (asc)
+            # 3) mbss_score (desc) tie-break
+            final_candidates = final_candidates.sort_values(
+                by=['retina_tier', 'rank_sum', 'mbss_score'],
+                ascending=[False, True, False]
+            )
             
             # Take top 10
             top_10 = final_candidates.head(10)
@@ -151,10 +195,21 @@ def generate_best_images_list():
         df_out = pd.DataFrame(all_best_images)
         # Create output directory if not exists
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        
-        df_out.to_excel(output_path, index=False)
-        print(f"\nSaved best image list to: {output_path}")
-        print(f"Total rows: {len(df_out)}")
+
+        try:
+            df_out.to_excel(output_path, index=False)
+            print(f"\nSaved best image list to: {output_path}")
+            print(f"Total rows: {len(df_out)}")
+        except PermissionError as e:
+            # Excel等でファイルが開かれていると上書きできないため、別名で退避保存する
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            root, ext = os.path.splitext(output_path)
+            alt_path = f"{root}_{ts}{ext}"
+            df_out.to_excel(alt_path, index=False)
+            print(f"\n[WARN] 出力先ファイルが使用中のため上書きできませんでした: {output_path}")
+            print(f"       代替ファイルに保存しました: {alt_path}")
+            print(f"       （元ファイルを閉じてから再実行すれば上書きできます）")
+            print(f"Total rows: {len(df_out)}")
     else:
         print("No results found.")
 

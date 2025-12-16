@@ -1,2 +1,6 @@
-# Normalize notebook line endings across OS
-*.ipynb text eol=crlf
+# Normalize line endings (LF) across OS
+# - コミット/差分/CI を安定させるため、改行は LF に統一します。
+# - WindowsでもGitの設定に依存せず LF を維持できるよう、対象拡張子を明示します。
+*.ipynb text eol=lf
+*.py    text eol=lf
+*.md    text eol=lf

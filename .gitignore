@@ -57,6 +57,7 @@ result.jpg
 *_result.txt
 *_result.jpg
 *.csv
+*.xlsx
 
 # Logs
 *.log
