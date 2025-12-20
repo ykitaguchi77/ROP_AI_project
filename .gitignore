@@ -8,6 +8,7 @@ env/
 venv/
 ENV/
 ropenv/
+ropenv_new/
 *.egg-info/
 .eggs/
 *.egg
@@ -27,8 +28,8 @@ ropenv/
 # Project specific directories
 ROP_image/
 ROP_video/
-ROP_project/bestimage_validation/*/画像
-ROP_project/bestimage_validation/*/動画
+ROP_project/bestimage_validation/*/images
+ROP_project/bestimage_validation/*/movie
 models/
 data/
 runs/
