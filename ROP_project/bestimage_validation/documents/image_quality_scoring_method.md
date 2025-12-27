@@ -12,7 +12,7 @@
 ## 1. 入出力（どこに保存されるか）
 
 ### 入力
-- `image_dir`: `...\{image_id}\画像` フォルダ（jpg/png等）
+- `image_dir`: `...\{image_id}\images` フォルダ（jpg/png等）
 - モデル:
   - **検出モデル**: RT-DETR（Lens bbox）
   - **セグメンテーションモデル**: YOLO-seg（Retina/Disc/Macula）
