@@ -1,0 +1,122 @@
+{
+  "version": "clinical_v3_tvt",
+  "cv_method": "train-val-test 5-fold (val=early stopping, test=evaluation)",
+  "model_name": "efficientnet_b0",
+  "quality_filter": [
+    "Good",
+    "Fair"
+  ],
+  "n_clinical_features": 4,
+  "clinical_embed_dim": 32,
+  "clinical_features": [
+    "ga_value",
+    "bw_value",
+    "pma_value",
+    "sex_value"
+  ],
+  "clinical_preprocessing": {
+    "continuous": "z-score per train folds (ga, bw, pma)",
+    "binary": "raw 0/1 (sex)",
+    "missing_continuous": "median imputation (per train folds)",
+    "missing_sex": "0.5"
+  },
+  "use_focal_loss": true,
+  "focal_gamma": 2.0,
+  "label_smoothing": 0.1,
+  "results": {
+    "zone": {
+      "accuracy": "0.7230 +/- 0.0640",
+      "kappa": "0.6295 +/- 0.0536",
+      "f1_macro": "0.6848 +/- 0.0482"
+    },
+    "stage": {
+      "accuracy": "0.7210 +/- 0.0514",
+      "kappa": "0.7362 +/- 0.0580",
+      "f1_macro": "0.7102 +/- 0.0457"
+    },
+    "plus": {
+      "accuracy": "0.8649 +/- 0.0445",
+      "kappa": "0.6937 +/- 0.0636",
+      "f1_macro": "0.6475 +/- 0.0723"
+    },
+    "aggressive_rop": {
+      "accuracy": "0.8342 +/- 0.0850",
+      "kappa": "0.2574 +/- 0.2093",
+      "f1_macro": "0.6027 +/- 0.1156",
+      "sensitivity": "0.8307 +/- 0.3266",
+      "auc": "0.8708 +/- 0.2289"
+    },
+    "treatment": {
+      "accuracy": "0.9264 +/- 0.0310",
+      "kappa": "0.6604 +/- 0.0814",
+      "f1_macro": "0.8289 +/- 0.0418",
+      "sensitivity": "0.8302 +/- 0.0841",
+      "auc": "0.9431 +/- 0.0534"
+    }
+  },
+  "fold_details": [
+    {
+      "iteration": 1,
+      "test_fold": 0,
+      "val_fold": 1,
+      "train_folds": [
+        2,
+        3,
+        4
+      ],
+      "test_size": 1262,
+      "test_loss": 4.222307193128368
+    },
+    {
+      "iteration": 2,
+      "test_fold": 1,
+      "val_fold": 2,
+      "train_folds": [
+        0,
+        3,
+        4
+      ],
+      "test_size": 1354,
+      "test_loss": 5.299530782419093
+    },
+    {
+      "iteration": 3,
+      "test_fold": 2,
+      "val_fold": 3,
+      "train_folds": [
+        0,
+        1,
+        4
+      ],
+      "test_size": 1436,
+      "test_loss": 4.387362196710375
+    },
+    {
+      "iteration": 4,
+      "test_fold": 3,
+      "val_fold": 4,
+      "train_folds": [
+        0,
+        1,
+        2
+      ],
+      "test_size": 1099,
+      "test_loss": 5.6579073753909785
+    },
+    {
+      "iteration": 5,
+      "test_fold": 4,
+      "val_fold": 0,
+      "train_folds": [
+        1,
+        2,
+        3
+      ],
+      "train_size": 3889,
+      "val_size": 1262,
+      "test_size": 1340,
+      "best_val_loss": 4.892695248881473,
+      "test_loss": 5.1537589232126875
+    }
+  ]
+}

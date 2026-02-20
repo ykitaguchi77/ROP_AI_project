@@ -1,0 +1,134 @@
+# ROP Multi-Task Classification Training Configuration
+# Generated: 2026-01-13
+# Output directory: outputs_v2
+
+# =============================================================================
+# Paths
+# =============================================================================
+paths:
+  data_root: "E:\\Multicenter_ROP_study"
+  image_dir: "E:\\Multicenter_ROP_study\\Multicenter_images\\selected_lens_images"
+  excel_path: "E:\\Multicenter_ROP_study\\multicenter_patient_data_20260103.xlsx"
+  output_dir: "C:\\Users\\ykita\\ROP_AI_project\\ROP_project\\multicenter_study\\outputs_v2"
+
+# =============================================================================
+# Model Configuration
+# =============================================================================
+model:
+  name: "efficientnet_b0"  # Changed from B3 to B0 (lighter model, 12M -> 5M params)
+  pretrained: true
+  dropout: 0.5  # Increased from 0.3 to 0.5 (overfitting reduction)
+
+# =============================================================================
+# Image Configuration
+# =============================================================================
+image:
+  size: 512
+
+# =============================================================================
+# Training Configuration
+# =============================================================================
+training:
+  batch_size: 16
+  num_workers: 0  # Windows compatibility
+  epochs: 50
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  patience: 10  # Early stopping patience
+
+# =============================================================================
+# Cross-Validation
+# =============================================================================
+cross_validation:
+  n_folds: 5
+  stratify_column: "treatment_label"
+  group_column: "video_id"
+
+# =============================================================================
+# Task Weights for Multi-Task Loss
+# =============================================================================
+task_weights:
+  zone: 1.0
+  stage: 1.0
+  plus: 1.0
+  aggressive_rop: 1.5  # Higher weight for critical task
+  treatment: 1.5       # Higher weight for critical task
+
+# =============================================================================
+# Loss Configuration
+# =============================================================================
+loss:
+  label_smoothing: 0.1
+  focal_gamma: 2.0
+
+# =============================================================================
+# Data Augmentation (STRENGTHENED for overfitting reduction)
+# =============================================================================
+augmentation:
+  description: "Strengthened augmentation (Step 1 changes)"
+  changes_from_v1:
+    - "Color jitter intensity: 0.1 -> 0.2"
+    - "Blur probability: 0.2 -> 0.4"
+    - "Added Gaussian noise (var_limit=(10.0, 50.0), p=0.3)"
+    - "Added CoarseDropout (max_holes=8, p=0.3)"
+
+  rotation:
+    limit: 180
+    probability: 0.9
+
+  flip:
+    horizontal: 0.5
+    vertical: 0.5
+
+  color_jitter:
+    brightness: 0.2
+    contrast: 0.2
+    saturation: 0.2
+    hue: 0.1
+    probability: 0.7
+
+  clahe:
+    clip_limit: 2.0
+    tile_grid_size: [8, 8]
+    probability: 0.3
+
+  blur:
+    gaussian_blur_limit: [3, 7]
+    motion_blur_limit: 5
+    median_blur_limit: 5
+    probability: 0.4
+
+  gaussian_noise:
+    var_limit: [10.0, 50.0]
+    probability: 0.3
+
+  random_resized_crop:
+    scale: [0.85, 1.0]
+    ratio: [0.9, 1.1]
+    probability: 0.4
+
+  coarse_dropout:
+    max_holes: 8
+    max_height_ratio: 0.0625  # img_size // 16
+    max_width_ratio: 0.0625
+    min_holes: 1
+    fill_value: 0
+    probability: 0.3
+
+# =============================================================================
+# Normalization (ImageNet)
+# =============================================================================
+normalization:
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+
+# =============================================================================
+# Notes
+# =============================================================================
+notes:
+  version: "v2"
+  description: "Step 1 - Overfitting reduction measures"
+  key_changes:
+    - "Lighter model (EfficientNet-B0 instead of B3)"
+    - "Increased dropout (0.3 -> 0.5)"
+    - "Strengthened data augmentation"

@@ -1,0 +1,374 @@
+{
+  "config": {
+    "top_k": 10,
+    "edge_coverage_cutoff": 0.8,
+    "weights": {
+      "retina_ratio": 0.4,
+      "mbss_Grad_p90": 0.4,
+      "mbss_score": 0.2
+    }
+  },
+  "data_summary": {
+    "total_images": 6448,
+    "top10_images": 3089,
+    "total_videos": 347,
+    "top10_videos": 347
+  },
+  "selection_summary": {
+    "total_videos": 347,
+    "stage1_only": 262,
+    "needed_fallback": 11,
+    "insufficient": 74,
+    "no_features": 0
+  },
+  "baseline_results": {
+    "zone": {
+      "accuracy": 0.7323,
+      "kappa": 0.666,
+      "f1_macro": 0.7132,
+      "per_class": {
+        "Zone I": {
+          "sensitivity": 0.8173,
+          "ppv": 0.5563
+        },
+        "Zone II": {
+          "sensitivity": 0.6685,
+          "ppv": 0.8776
+        },
+        "Zone III": {
+          "sensitivity": 0.8417,
+          "ppv": 0.6269
+        }
+      }
+    },
+    "stage": {
+      "accuracy": 0.7298,
+      "kappa": 0.7613,
+      "f1_macro": 0.578,
+      "per_class": {
+        "Stage 0": {
+          "sensitivity": 0.0,
+          "ppv": 0
+        },
+        "Stage 1": {
+          "sensitivity": 0.7266,
+          "ppv": 0.8761
+        },
+        "Stage 2": {
+          "sensitivity": 0.7581,
+          "ppv": 0.586
+        },
+        "Stage 3": {
+          "sensitivity": 0.6414,
+          "ppv": 0.7205
+        },
+        "3": {
+          "sensitivity": 0.8381,
+          "ppv": 0.6888
+        }
+      }
+    },
+    "plus": {
+      "accuracy": 0.8826,
+      "kappa": 0.7502,
+      "f1_macro": 0.544,
+      "per_class": {
+        "Normal": {
+          "sensitivity": 0.0,
+          "ppv": 0
+        },
+        "Pre-plus": {
+          "sensitivity": 0.9206,
+          "ppv": 0.9831
+        },
+        "Plus": {
+          "sensitivity": 0.7199,
+          "ppv": 0.4787
+        },
+        "2": {
+          "sensitivity": 0.6838,
+          "ppv": 0.62
+        }
+      }
+    },
+    "aggressive_rop": {
+      "accuracy": 0.7779,
+      "sensitivity": 0.8596,
+      "specificity": 0.7749,
+      "ppv": 0.1228,
+      "npv": 0.9934,
+      "f1": 0.2149,
+      "kappa": 0.1631,
+      "auc": 0.9164
+    },
+    "treatment": {
+      "accuracy": 0.9491,
+      "sensitivity": 0.9171,
+      "specificity": 0.9526,
+      "ppv": 0.6757,
+      "npv": 0.9907,
+      "f1": 0.7781,
+      "kappa": 0.7501,
+      "auc": 0.978
+    },
+    "rw_rop": {
+      "accuracy": 0.8986,
+      "sensitivity": 0.8652,
+      "specificity": 0.908,
+      "ppv": 0.7259,
+      "npv": 0.9599,
+      "f1": 0.7894,
+      "kappa": 0.7233,
+      "auc": 0.9536
+    }
+  },
+  "top10_results": {
+    "zone": {
+      "accuracy": 0.7339,
+      "kappa": 0.6613,
+      "f1_macro": 0.711,
+      "per_class": {
+        "Zone I": {
+          "sensitivity": 0.789,
+          "ppv": 0.5603
+        },
+        "Zone II": {
+          "sensitivity": 0.6838,
+          "ppv": 0.871
+        },
+        "Zone III": {
+          "sensitivity": 0.8296,
+          "ppv": 0.6228
+        }
+      }
+    },
+    "stage": {
+      "accuracy": 0.7193,
+      "kappa": 0.7669,
+      "f1_macro": 0.5668,
+      "per_class": {
+        "Stage 0": {
+          "sensitivity": 0.0,
+          "ppv": 0
+        },
+        "Stage 1": {
+          "sensitivity": 0.7129,
+          "ppv": 0.8923
+        },
+        "Stage 2": {
+          "sensitivity": 0.7864,
+          "ppv": 0.5631
+        },
+        "Stage 3": {
+          "sensitivity": 0.608,
+          "ppv": 0.683
+        },
+        "3": {
+          "sensitivity": 0.7913,
+          "ppv": 0.6984
+        }
+      }
+    },
+    "plus": {
+      "accuracy": 0.8792,
+      "kappa": 0.7332,
+      "f1_macro": 0.5268,
+      "per_class": {
+        "Normal": {
+          "sensitivity": 0.0,
+          "ppv": 0
+        },
+        "Pre-plus": {
+          "sensitivity": 0.9227,
+          "ppv": 0.9838
+        },
+        "Plus": {
+          "sensitivity": 0.6916,
+          "ppv": 0.5011
+        },
+        "2": {
+          "sensitivity": 0.6453,
+          "ppv": 0.5163
+        }
+      }
+    },
+    "aggressive_rop": {
+      "accuracy": 0.7731,
+      "sensitivity": 0.8889,
+      "specificity": 0.7696,
+      "ppv": 0.1038,
+      "npv": 0.9957,
+      "f1": 0.1858,
+      "kappa": 0.141,
+      "auc": 0.9357
+    },
+    "treatment": {
+      "accuracy": 0.9453,
+      "sensitivity": 0.9254,
+      "specificity": 0.9474,
+      "ppv": 0.65,
+      "npv": 0.9918,
+      "f1": 0.7636,
+      "kappa": 0.7338,
+      "auc": 0.9798
+    },
+    "rw_rop": {
+      "accuracy": 0.8893,
+      "sensitivity": 0.8312,
+      "specificity": 0.9065,
+      "ppv": 0.7244,
+      "npv": 0.9478,
+      "f1": 0.7741,
+      "kappa": 0.7012,
+      "auc": 0.9379
+    }
+  },
+  "baseline_thresholds": {
+    "treatment": {
+      "auc": 0.978,
+      "default_0.5": {
+        "threshold": 0.5,
+        "accuracy": 0.9491,
+        "sensitivity": 0.9171,
+        "specificity": 0.9526,
+        "ppv": 0.6757,
+        "npv": 0.9907,
+        "f1": 0.7781,
+        "kappa": 0.7501,
+        "auc": 0.978
+      },
+      "sens_95": {
+        "threshold": 0.4343,
+        "accuracy": 0.9353,
+        "sensitivity": 0.9506,
+        "specificity": 0.9337,
+        "ppv": 0.6069,
+        "npv": 0.9943,
+        "f1": 0.7408,
+        "kappa": 0.7059,
+        "auc": 0.978
+      },
+      "youden": {
+        "threshold": 0.4209,
+        "accuracy": 0.9311,
+        "sensitivity": 0.9585,
+        "specificity": 0.9282,
+        "ppv": 0.5898,
+        "npv": 0.9952,
+        "f1": 0.7303,
+        "kappa": 0.6933,
+        "auc": 0.978
+      }
+    },
+    "rw_rop": {
+      "auc": 0.9536,
+      "default_0.5": {
+        "threshold": 0.5,
+        "accuracy": 0.8586,
+        "sensitivity": 0.9118,
+        "specificity": 0.8436,
+        "ppv": 0.6215,
+        "npv": 0.9714,
+        "f1": 0.7391,
+        "kappa": 0.6468,
+        "auc": 0.9536
+      },
+      "sens_95": {
+        "threshold": 0.4232,
+        "accuracy": 0.7747,
+        "sensitivity": 0.9506,
+        "specificity": 0.7251,
+        "ppv": 0.4934,
+        "npv": 0.9812,
+        "f1": 0.6496,
+        "kappa": 0.507,
+        "auc": 0.9536
+      },
+      "youden": {
+        "threshold": 0.598,
+        "accuracy": 0.9071,
+        "sensitivity": 0.8596,
+        "specificity": 0.9205,
+        "ppv": 0.7528,
+        "npv": 0.9588,
+        "f1": 0.8026,
+        "kappa": 0.7422,
+        "auc": 0.9536
+      }
+    }
+  },
+  "top10_thresholds": {
+    "treatment": {
+      "auc": 0.9798,
+      "default_0.5": {
+        "threshold": 0.5,
+        "accuracy": 0.9453,
+        "sensitivity": 0.9254,
+        "specificity": 0.9474,
+        "ppv": 0.65,
+        "npv": 0.9918,
+        "f1": 0.7636,
+        "kappa": 0.7338,
+        "auc": 0.9798
+      },
+      "sens_95": {
+        "threshold": 0.4486,
+        "accuracy": 0.9349,
+        "sensitivity": 0.9525,
+        "specificity": 0.9331,
+        "ppv": 0.6004,
+        "npv": 0.9947,
+        "f1": 0.7366,
+        "kappa": 0.7016,
+        "auc": 0.9798
+      },
+      "youden": {
+        "threshold": 0.4343,
+        "accuracy": 0.9314,
+        "sensitivity": 0.9661,
+        "specificity": 0.9277,
+        "ppv": 0.5852,
+        "npv": 0.9962,
+        "f1": 0.7289,
+        "kappa": 0.6923,
+        "auc": 0.9798
+      }
+    },
+    "rw_rop": {
+      "auc": 0.9379,
+      "default_0.5": {
+        "threshold": 0.5,
+        "accuracy": 0.8488,
+        "sensitivity": 0.8908,
+        "specificity": 0.8364,
+        "ppv": 0.6169,
+        "npv": 0.9628,
+        "f1": 0.729,
+        "kappa": 0.6289,
+        "auc": 0.9379
+      },
+      "sens_95": {
+        "threshold": 0.4051,
+        "accuracy": 0.7339,
+        "sensitivity": 0.9504,
+        "specificity": 0.6699,
+        "ppv": 0.4598,
+        "npv": 0.9786,
+        "f1": 0.6198,
+        "kappa": 0.4509,
+        "auc": 0.9379
+      },
+      "youden": {
+        "threshold": 0.5994,
+        "accuracy": 0.898,
+        "sensitivity": 0.827,
+        "specificity": 0.919,
+        "ppv": 0.7513,
+        "npv": 0.9473,
+        "f1": 0.7873,
+        "kappa": 0.7204,
+        "auc": 0.9379
+      }
+    }
+  }
+}

@@ -1,7 +1,3 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Project Overview
 
 This is a ROP (Retinopathy of Prematurity) AI detection and segmentation project using YOLO and RT-DETR models. The project includes CLI tools for data preparation, model training, and inference on fundus images/videos.
@@ -95,3 +91,5 @@ python ROP_project/bestimage_validation/infer_case_video.py
 - Check GPU availability with torch.cuda.is_available() before training
 - Use patience parameter to prevent overfitting
 - For segmentation tasks, ensure empty label files exist for images without annotations
+
+ 

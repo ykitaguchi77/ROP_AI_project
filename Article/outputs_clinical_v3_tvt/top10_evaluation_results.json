@@ -1,0 +1,72 @@
+{
+  "per_image_thresholds": {
+    "treatment": {
+      "auc": 0.9502,
+      "default_0.5": {
+        "threshold": 0.5,
+        "sensitivity": 0.8293,
+        "specificity": 0.9355,
+        "ppv": 0.5791,
+        "npv": 0.9809,
+        "f1": 0.682
+      },
+      "sens_95": {
+        "threshold": 0.3659,
+        "sensitivity": 0.9506,
+        "specificity": 0.8267,
+        "ppv": 0.3697,
+        "npv": 0.9936,
+        "f1": 0.5324
+      },
+      "youden": {
+        "threshold": 0.4072,
+        "sensitivity": 0.9171,
+        "specificity": 0.8915,
+        "ppv": 0.4748,
+        "npv": 0.9902,
+        "f1": 0.6257
+      }
+    },
+    "rw_rop": {
+      "auc": 0.9126,
+      "default_0.5": {
+        "threshold": 0.5,
+        "sensitivity": 0.8765,
+        "specificity": 0.8055,
+        "ppv": 0.5572,
+        "npv": 0.9589,
+        "f1": 0.6813
+      },
+      "sens_95": {
+        "threshold": 0.3265,
+        "sensitivity": 0.9506,
+        "specificity": 0.403,
+        "ppv": 0.3078,
+        "npv": 0.9669,
+        "f1": 0.465
+      },
+      "youden": {
+        "threshold": 0.5524,
+        "sensitivity": 0.8419,
+        "specificity": 0.868,
+        "ppv": 0.6404,
+        "npv": 0.9516,
+        "f1": 0.7274
+      }
+    }
+  },
+  "selection_summary_10": {
+    "total_videos": 348,
+    "stage1_only": 264,
+    "needed_fallback": 11,
+    "insufficient": 73,
+    "no_features": 0
+  },
+  "selection_summary_5": {
+    "total_videos": 348,
+    "stage1_only": 302,
+    "needed_fallback": 13,
+    "insufficient": 33,
+    "no_features": 0
+  }
+}

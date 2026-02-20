@@ -1,0 +1,81 @@
+{
+  "version": "icrop_treatment",
+  "model_name": "efficientnet_b0",
+  "quality_filter": [
+    "Good",
+    "Fair"
+  ],
+  "n_clinical_features": 4,
+  "clinical_embed_dim": 32,
+  "clinical_features": [
+    "ga_value",
+    "bw_value",
+    "pma_value",
+    "sex_value"
+  ],
+  "clinical_preprocessing": {
+    "continuous": "z-score per fold (ga, bw, pma)",
+    "binary": "raw 0/1 (sex)",
+    "missing_continuous": "median imputation (per fold)",
+    "missing_sex": "0.5"
+  },
+  "use_class_weights": true,
+  "use_focal_loss": true,
+  "focal_gamma": 2.0,
+  "label_smoothing": 0.1,
+  "class_weights": {
+    "zone": [
+      5.289333343505859,
+      1.0,
+      2.291738986968994
+    ],
+    "stage": [
+      1.0,
+      1.8124191761016846,
+      2.2633278369903564,
+      3.335714340209961
+    ],
+    "plus": [
+      1.0,
+      8.417840003967285,
+      13.183823585510254
+    ],
+    "treatment": [
+      1.0,
+      9.283891677856445
+    ]
+  },
+  "results": {
+    "zone": {
+      "accuracy": "0.6731 +/- 0.1395",
+      "kappa": "0.5926 +/- 0.1827",
+      "f1_macro": "0.6596 +/- 0.1370"
+    },
+    "stage": {
+      "accuracy": "0.6963 +/- 0.1163",
+      "kappa": "0.6796 +/- 0.2017",
+      "f1_macro": "0.6783 +/- 0.1337"
+    },
+    "plus": {
+      "accuracy": "0.8457 +/- 0.1105",
+      "kappa": "0.6609 +/- 0.2195",
+      "f1_macro": "0.6474 +/- 0.1376"
+    },
+    "treatment": {
+      "accuracy": "0.9002 +/- 0.1107",
+      "kappa": "0.6448 +/- 0.2848",
+      "f1_macro": "0.8120 +/- 0.1615",
+      "sensitivity": "0.8413 +/- 0.1461",
+      "auc": "0.9290 +/- 0.1100"
+    }
+  },
+  "rw_rop_results": {
+    "accuracy": "0.8663 +/- 0.1041",
+    "sensitivity": "0.8147 +/- 0.1204",
+    "specificity": "0.8843 +/- 0.1060",
+    "ppv": "0.6905 +/- 0.1927",
+    "npv": "0.9372 +/- 0.0526",
+    "f1": "0.7402 +/- 0.1531",
+    "auc_roc": "0.9043 +/- 0.1165"
+  }
+}

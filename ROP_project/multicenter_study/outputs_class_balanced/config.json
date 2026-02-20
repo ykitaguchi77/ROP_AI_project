@@ -1,0 +1,63 @@
+{
+  "version": "class_balanced_v1",
+  "quality_filter": [
+    "Good",
+    "Fair"
+  ],
+  "use_class_weights": true,
+  "use_focal_loss": true,
+  "focal_gamma": 2.0,
+  "label_smoothing": 0.1,
+  "class_weights": {
+    "zone": [
+      5.289333343505859,
+      1.0,
+      2.291738986968994
+    ],
+    "stage": [
+      1.0,
+      1.8124191761016846,
+      2.2633278369903564,
+      3.335714340209961
+    ],
+    "aggressive_rop": [
+      1.0,
+      27.280702590942383
+    ],
+    "treatment": [
+      1.0,
+      9.283891677856445
+    ]
+  },
+  "results": {
+    "zone": {
+      "accuracy": "0.6966 \u00b1 0.0271",
+      "kappa": "0.5817 \u00b1 0.0401",
+      "f1_macro": "0.6712 \u00b1 0.0235"
+    },
+    "stage": {
+      "accuracy": "0.6993 \u00b1 0.0447",
+      "kappa": "0.7142 \u00b1 0.0573",
+      "f1_macro": "0.6923 \u00b1 0.0446"
+    },
+    "plus": {
+      "accuracy": "0.0000 \u00b1 0.0000",
+      "kappa": "0.0000 \u00b1 0.0000",
+      "f1_macro": "0.0000 \u00b1 0.0000"
+    },
+    "aggressive_rop": {
+      "accuracy": "0.7525 \u00b1 0.3228",
+      "kappa": "0.2560 \u00b1 0.1701",
+      "f1_macro": "0.5432 \u00b1 0.2234",
+      "sensitivity": "0.8885 \u00b1 0.1595",
+      "auc": "0.9098 \u00b1 0.1103"
+    },
+    "treatment": {
+      "accuracy": "0.9503 \u00b1 0.0177",
+      "kappa": "0.7278 \u00b1 0.1261",
+      "f1_macro": "0.8634 \u00b1 0.0634",
+      "sensitivity": "0.8736 \u00b1 0.0888",
+      "auc": "0.9747 \u00b1 0.0173"
+    }
+  }
+}

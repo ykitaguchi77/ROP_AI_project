@@ -1,0 +1,144 @@
+{
+  "version": "clinical_v3_retrain",
+  "cv_method": "train+val retrain 5-fold (Phase1: val->best_epoch, Phase2: train+val retrain)",
+  "model_name": "efficientnet_b0",
+  "quality_filter": [
+    "Good",
+    "Fair"
+  ],
+  "n_clinical_features": 4,
+  "clinical_embed_dim": 32,
+  "clinical_features": [
+    "ga_value",
+    "bw_value",
+    "pma_value",
+    "sex_value"
+  ],
+  "clinical_preprocessing": {
+    "continuous": "z-score per train folds (ga, bw, pma)",
+    "binary": "raw 0/1 (sex)",
+    "missing_continuous": "median imputation (per train folds)",
+    "missing_sex": "0.5"
+  },
+  "use_focal_loss": true,
+  "focal_gamma": 2.0,
+  "label_smoothing": 0.1,
+  "results": {
+    "zone": {
+      "accuracy": "0.8029 +/- 0.0189",
+      "kappa": "0.7216 +/- 0.0288",
+      "f1_macro": "0.7687 +/- 0.0212"
+    },
+    "stage": {
+      "accuracy": "0.7632 +/- 0.0315",
+      "kappa": "0.8138 +/- 0.0450",
+      "f1_macro": "0.7374 +/- 0.0447"
+    },
+    "plus": {
+      "accuracy": "0.9083 +/- 0.0198",
+      "kappa": "0.7747 +/- 0.0625",
+      "f1_macro": "0.6955 +/- 0.1116"
+    },
+    "aggressive_rop": {
+      "accuracy": "0.7862 +/- 0.3465",
+      "kappa": "0.3410 +/- 0.2788",
+      "f1_macro": "0.5862 +/- 0.2715",
+      "sensitivity": "0.7538 +/- 0.3821",
+      "auc": "0.7737 +/- 0.3885"
+    },
+    "treatment": {
+      "accuracy": "0.9499 +/- 0.0077",
+      "kappa": "0.6862 +/- 0.0977",
+      "f1_macro": "0.8426 +/- 0.0497",
+      "sensitivity": "0.7073 +/- 0.1822",
+      "auc": "0.9224 +/- 0.0333"
+    }
+  },
+  "fold_details": [
+    {
+      "iteration": 1,
+      "test_fold": 0,
+      "val_fold": 1,
+      "train_folds": [
+        2,
+        3,
+        4
+      ],
+      "train_size": 3882,
+      "val_size": 1330,
+      "trainval_size": 5212,
+      "test_size": 1279,
+      "best_epoch": 16,
+      "best_val_loss": 4.507250880911236,
+      "test_loss": 4.611544347554445
+    },
+    {
+      "iteration": 2,
+      "test_fold": 1,
+      "val_fold": 2,
+      "train_folds": [
+        0,
+        3,
+        4
+      ],
+      "train_size": 3800,
+      "val_size": 1361,
+      "trainval_size": 5161,
+      "test_size": 1330,
+      "best_epoch": 19,
+      "best_val_loss": 4.2956758321717725,
+      "test_loss": 4.502101419937043
+    },
+    {
+      "iteration": 3,
+      "test_fold": 2,
+      "val_fold": 3,
+      "train_folds": [
+        0,
+        1,
+        4
+      ],
+      "train_size": 3989,
+      "val_size": 1141,
+      "trainval_size": 5130,
+      "test_size": 1361,
+      "best_epoch": 23,
+      "best_val_loss": 4.260451131396824,
+      "test_loss": 4.758407451385676
+    },
+    {
+      "iteration": 4,
+      "test_fold": 3,
+      "val_fold": 4,
+      "train_folds": [
+        0,
+        1,
+        2
+      ],
+      "train_size": 3970,
+      "val_size": 1380,
+      "trainval_size": 5350,
+      "test_size": 1141,
+      "best_epoch": 14,
+      "best_val_loss": 5.610301152042959,
+      "test_loss": 4.8080028891563416
+    },
+    {
+      "iteration": 5,
+      "test_fold": 4,
+      "val_fold": 0,
+      "train_folds": [
+        1,
+        2,
+        3
+      ],
+      "train_size": 3832,
+      "val_size": 1279,
+      "trainval_size": 5111,
+      "test_size": 1380,
+      "best_epoch": 25,
+      "best_val_loss": 5.1538552567362785,
+      "test_loss": 5.384909583234239
+    }
+  ]
+}
